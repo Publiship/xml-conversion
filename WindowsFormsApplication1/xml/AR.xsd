@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<xs:schema xmlns:i="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="AccountsReceivable">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MessageType" type="xs:string" />
+              <xs:element name="MessageVersion" type="xs:unsignedByte" />
+              <xs:element name="MessageIdentifier" type="xs:string" />
+              <xs:element name="SentDatetime" type="xs:dateTime" />
+              <xs:element name="SentDatetimeZone" type="xs:string" />
+              <xs:element name="Partners">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="PartnerInformation">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ContactInformation" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Invoices">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="InvoiceInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ActionCode" type="xs:unsignedByte" />
+                    <xs:element name="Office" type="xs:string" />
+                    <xs:element name="OperationOffice" type="xs:string" />
+                    <xs:element name="InvoiceNo" type="xs:string" />
+                    <xs:element name="InvoiceDate" type="xs:unsignedInt" />
+                    <xs:element name="InvoiceDueDate" type="xs:unsignedInt" />
+                    <xs:element name="CreatedBy" type="xs:string" />
+                    <xs:element name="CreatedOn" type="xs:unsignedLong" />
+                    <xs:element name="ApprovedBy" type="xs:string" />
+                    <xs:element name="ApprovedOn" type="xs:unsignedLong" />
+                    <xs:element name="InvoiceType" type="xs:string" />
+                    <xs:element name="TransactionDate" type="xs:unsignedLong" />
+                    <xs:element name="AccountingPeriod" type="xs:unsignedInt" />
+                    <xs:element name="YearCode" type="xs:unsignedShort" />
+                    <xs:element name="Remarks" type="xs:string" />
+                    <xs:element name="PaymentTerms" type="xs:unsignedByte" />
+                    <xs:element name="VoucherNo" />
+                    <xs:element name="SpInvoiceRequire" type="xs:string" />
+                    <xs:element name="IsOperationInvoice" type="xs:string" />
+                    <xs:element name="IsLineLevelGst" type="xs:string" />
+                    <xs:element name="AmountSummary">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="BillingInvoiceCurrency" type="xs:string" />
+                          <xs:element name="BillingCurrencyExchangeRate" type="xs:decimal" />
+                          <xs:element name="BaseCurrencyCode" type="xs:string" />
+                          <xs:element name="TotalGrossAmount" type="xs:decimal" />
+                          <xs:element name="BaseTotalGrossAmount" type="xs:decimal" />
+                          <xs:element name="TotalDiscountAmount" type="xs:decimal" />
+                          <xs:element name="BaseTotalDiscountAmount" type="xs:decimal" />
+                          <xs:element name="TotalTaxAmount" type="xs:decimal" />
+                          <xs:element name="BaseTotalTaxAmount" type="xs:decimal" />
+                          <xs:element name="GrandInvoiceAmount" type="xs:decimal" />
+                          <xs:element name="BaseGrandInvoiceAmount" type="xs:decimal" />
+                          <xs:element name="TaxSummary" />
+                          <xs:element name="DiscountSummary" />
+                          <xs:element name="WithholdingTaxTdsSummary" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Debtor">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="AccountType" type="xs:string" />
+                          <xs:element name="AccountCode" type="xs:unsignedByte" />
+                          <xs:element name="Code" type="xs:string" />
+                          <xs:element name="Name" type="xs:string" />
+                          <xs:element name="Address" type="xs:string" />
+                          <xs:element name="Email" type="xs:string" />
+                          <xs:element name="Phone" />
+                          <xs:element name="CreditTerms" type="xs:unsignedByte" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Charges">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ChargeInfo">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="SeqNo" type="xs:unsignedByte" />
+                                <xs:element name="ChargeCode" type="xs:string" />
+                                <xs:element name="ChargeDescription" type="xs:string" />
+                                <xs:element name="Quantity" type="xs:decimal" />
+                                <xs:element name="Uom" type="xs:string" />
+                                <xs:element name="Rate" type="xs:decimal" />
+                                <xs:element name="Currency" type="xs:string" />
+                                <xs:element name="ChargeAmount" type="xs:decimal" />
+                                <xs:element name="ChargeBillingExchangeRate" type="xs:decimal" />
+                                <xs:element name="BillingAmount" type="xs:decimal" />
+                                <xs:element name="BillingExchangeRate" type="xs:decimal" />
+                                <xs:element name="BaseAmount" type="xs:decimal" />
+                                <xs:element name="PostingCode" type="xs:unsignedInt" />
+                                <xs:element name="Narration" type="xs:string" />
+                                <xs:element name="ChargeTaxes">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="ChargeTaxInfo" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="Job">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="JobInfo">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="JobNumber" type="xs:string" />
+                                            <xs:element name="JobType" type="xs:string" />
+                                            <xs:element name="JobChargeCurrency" type="xs:string" />
+                                            <xs:element name="JobChargeAmount" type="xs:decimal" />
+                                            <xs:element name="BookingNumber" type="xs:string" />
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="References">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="ReferenceInfo">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="RefFieldName" type="xs:string" />
+                                            <xs:element name="RefFieldValue" />
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="JobSummary">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="JobSummaryInfo">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="JobNumber" type="xs:string" />
+                                <xs:element name="JobType" type="xs:string" />
+                                <xs:element name="ClientCode" type="xs:string" />
+                                <xs:element name="ClientName" type="xs:string" />
+                                <xs:element name="ShipperCode" type="xs:string" />
+                                <xs:element name="ShipperName" type="xs:string" />
+                                <xs:element name="ConsigneeCode" type="xs:string" />
+                                <xs:element name="ConsigneeName" type="xs:string" />
+                                <xs:element name="Mbl" type="xs:string" />
+                                <xs:element name="Hbl" type="xs:string" />
+                                <xs:element name="BookingNo" type="xs:string" />
+                                <xs:element name="BookingDate" type="xs:unsignedInt" />
+                                <xs:element name="VesselName" type="xs:string" />
+                                <xs:element name="FlightVoyageNo" type="xs:string" />
+                                <xs:element name="EtdDate" type="xs:unsignedLong" />
+                                <xs:element name="EtaDate" type="xs:unsignedLong" />
+                                <xs:element name="AtdDate" type="xs:unsignedLong" />
+                                <xs:element name="PortOfOriginCode" type="xs:string" />
+                                <xs:element name="PortOfOriginName" type="xs:string" />
+                                <xs:element name="PortOfDestinationCode" type="xs:string" />
+                                <xs:element name="PortOfDestinationName" type="xs:string" />
+                                <xs:element name="CountryOfOriginCode" type="xs:string" />
+                                <xs:element name="CountryOfOriginName" type="xs:string" />
+                                <xs:element name="CountryOfDestinationCode" type="xs:string" />
+                                <xs:element name="CountryOfDestinationName" type="xs:string" />
+                                <xs:element name="PlaceOfReceiptCode" type="xs:string" />
+                                <xs:element name="PlaceOfReceiptName" type="xs:string" />
+                                <xs:element name="PlaceOfDeliveryCode" type="xs:string" />
+                                <xs:element name="PlaceOfDeliveryName" type="xs:string" />
+                                <xs:element name="Package" type="xs:unsignedShort" />
+                                <xs:element name="PackageUom" type="xs:string" />
+                                <xs:element name="VolumeUom" type="xs:string" />
+                                <xs:element name="GrossWeight" type="xs:decimal" />
+                                <xs:element name="ChWeight" type="xs:decimal" />
+                                <xs:element name="WeightUom" type="xs:string" />
+                                <xs:element name="MovementType" type="xs:string" />
+                                <xs:element name="ContainerSummary" type="xs:string" />
+                                <xs:element name="ShipmentType" type="xs:string" />
+                                <xs:element name="JobCreatedOn" type="xs:unsignedLong" />
+                                <xs:element name="JobCreatedBy" type="xs:string" />
+                                <xs:element name="Status" type="xs:string" />
+                                <xs:element name="TransportationMode" type="xs:string" />
+                                <xs:element name="Manifest">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="ManifestInfo">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="ManifestNumber" type="xs:string" />
+                                            <xs:element name="ManifestAtdDate" type="xs:unsignedLong" />
+                                            <xs:element name="WayBillNo" type="xs:string" />
+                                            <xs:element name="WayBillDate" type="xs:unsignedInt" />
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="JobReferences">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element maxOccurs="unbounded" name="JobReferenceInfo">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="RefFieldName" type="xs:string" />
+                                            <xs:element name="RefFieldValue" type="xs:string" />
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="OwnerOfficeCode" type="xs:string" />
+                                <xs:element name="OwnerOfficeName" type="xs:string" />
+                                <xs:element name="ExecutingOfficeCode" type="xs:string" />
+                                <xs:element name="ExecutingOfficeName" type="xs:string" />
+                                <xs:element name="BookingConfirmationDate" type="xs:unsignedInt" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="InvoiceReferences">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="InvoiceReferenceInfo">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="RefFieldName" type="xs:string" />
+                                <xs:element name="RefFieldValue" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
