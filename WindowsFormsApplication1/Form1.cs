@@ -16,7 +16,7 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
-        string localdir = Properties.Resources.localdir;
+        private string localdir = Properties.Resources.localdir;
 
         public Form1()
         {
@@ -24,6 +24,75 @@ namespace WindowsFormsApplication1
         }
 
         #region form events
+        /// <summary>
+        /// check for files on FTP site
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonGet_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            //reset progress bar
+            int prg = 0;
+            this.progressBarFTP.Value = prg;
+
+            //get from resx
+            string[] ftpinfo = { Properties.Resources.hostIP.ToString(), Properties.Resources.username.ToString(), Properties.Resources.password.ToString() };
+            string[] folders = { Properties.Resources.AR, Properties.Resources.AP };
+            string localdir = Properties.Resources.localdir;
+
+            if (!Directory.Exists(localdir))
+            {
+                Directory.CreateDirectory(localdir);
+            }
+            else
+            {
+                //make sure dir is empty
+
+            }
+            //new instance of ftp handler
+            misccs.ftp_handler ftp = new misccs.ftp_handler(ftpinfo[0], ftpinfo[1], ftpinfo[2]);
+
+            //step through server folders
+            for (int nx = 0; nx < folders.Length; nx++)
+            {
+                string pth = "scmprofit/" + folders[nx];
+                //get files from server directory
+                List<string> lst = ftp.directoryListSimple(pth);
+
+                if (lst != null)
+                {
+                    //download to local directory if it's not been processed already
+                    for (int ix = 0; ix < lst.Count; ix++)
+                    {
+                        string fle = lst[ix].ToString();
+                        if (!string.IsNullOrEmpty(fle))
+                        {
+
+                            ftp.download(pth + "/" + fle, localdir + "/" + fle);
+                            //add to list
+                            this.listFiles.Items.Add(fle);
+
+                        }
+
+                        //update progress bar
+                        prg = ((100 / folders.Length) / lst.Count) * ix;
+                        this.progressBarFTP.Increment(prg);
+                    }
+                    //end downloads
+
+                    //show download in list
+                    //this.listFiles.Items.AddRange(lst.ToArray());
+                }
+                //end lst not null
+            }
+            //end step through folders
+
+            this.progressBarFTP.Increment(100);
+            Cursor.Current = Cursors.Default;
+        }
+        //end button get files
+
         /// <summary>
         /// process xml invoices
         /// </summary>
@@ -35,6 +104,10 @@ namespace WindowsFormsApplication1
             string typ = "SI"; //invoice type
             string nme = DateTime.Now.ToString("ddMMyyhhmmss"); //csv name
             string[] fle = { nme, ".csv", null }; //output file type, output file namne, output content (generated below)
+
+            Cursor.Current = Cursors.WaitCursor;
+            int prg = 0;
+            this.progressBarFTP.Value = prg;  //reset progress bar
 
             //get xml file(s) named in listbox
             if (this.listFiles.Items.Count > 0)
@@ -94,9 +167,17 @@ namespace WindowsFormsApplication1
                             //generate csv file
                             if (write_to_file(fle))
                             {
-                                
+                                this.listFiles.Items[ix] = this.listFiles.Items[ix] + " " + "ok"; //((char)0x221A).ToString(); tick
+                            }
+                            else
+                            {
+                                this.listFiles.Items[ix] = this.listFiles.Items[ix] + " " + "failed";
                             }
                             //end write to file
+
+                            //update progress bar
+                            prg = (100 / this.listFiles.Items.Count) * ix;
+                            this.progressBarFTP.Increment(prg);
                         }
                         //end if not empty
                     }
@@ -104,79 +185,16 @@ namespace WindowsFormsApplication1
                 }
                 //end listbox enumeration
 
+                this.progressBarFTP.Increment(100);
                 //open generated file
                 open_file(fle);
             }
             //end if count > 0
+            Cursor.Current = Cursors.Default;
+
         }
         //end process click
-               
-         
-        /// <summary>
-        /// check for files on FTP site
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonGet_Click(object sender, EventArgs e)
-        {
-            //reset progress bar
-            int prg = 0;
-            this.progressBarFTP.Value = prg;
-
-            //get from resx
-            string[] ftpinfo = { Properties.Resources.hostIP.ToString(), Properties.Resources.username.ToString(), Properties.Resources.password.ToString() };
-            string[] folders = { Properties.Resources.AR, Properties.Resources.AP };
-            string localdir = Properties.Resources.localdir;
-
-            if (!Directory.Exists(localdir))
-            {
-                Directory.CreateDirectory(localdir);
-            }
-            else
-            {
-                //make sure dir is empty
-
-            }            
-            //new instance of ftp handler
-            misccs.ftp_handler ftp = new misccs.ftp_handler(ftpinfo[0], ftpinfo[1], ftpinfo[2]);
-
-            //step through server folders
-            for (int nx = 0; nx < folders.Length; nx++)
-            {
-                string pth = "scmprofit/" + folders[nx];
-                //get files from server directory
-                List<string> lst = ftp.directoryListSimple(pth);
-
-                if (lst != null)
-                {
-                    //download to local directory if it's not been processed already
-                    for (int ix = 0; ix < lst.Count; ix++)
-                    {
-                        string fle = lst[ix].ToString();
-                        if (!string.IsNullOrEmpty(fle)) {
-
-                            ftp.download(pth + "/" + fle, localdir + "/" + fle);
-                            //add to list
-                            this.listFiles.Items.Add(fle);
-
-                        }
-
-                        //update progress bar
-                        prg = ((100 / folders.Length) / lst.Count) * ix;
-                        this.progressBarFTP.Increment(prg);
-                    }
-                    //end downloads
-
-                    //show download in list
-                    //this.listFiles.Items.AddRange(lst.ToArray());
-                }
-                //end lst not null
-            }
-            //end step through folders
-
-            this.progressBarFTP.Increment(100);
-        }
-        //end button get files
+        
 
         /// <summary>
         /// close button
